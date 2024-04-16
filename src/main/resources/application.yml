@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hotcake
+    username: root
+    password: springboot
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+#spring:
+#  h2:
+#    console:
+#      enabled: true
+#  datasource:
+#    url: jdbc:h2:mem:testdb
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password: sa
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+
