@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/stores")
 public class StoreController {
 
-    // 使用 Spring Data jpa，自動注入 ShopRepository
     @Autowired
     private StoreRepository storeRepository;
 
     @PostMapping
     public ResponseEntity<String> createStore(@Valid @RequestBody Stores store) {
         // 根據商店名稱查詢該商店是否存在
-        Stores existingStore = storeRepository.findByStoreName(store.getStoreName());
+        Stores existingStore = storeRepository.findByName(store.getName());
         // 若不存在就傳入店名、開店時間、關店時間，創建商店
         if (existingStore == null) {
             storeRepository.save(store);

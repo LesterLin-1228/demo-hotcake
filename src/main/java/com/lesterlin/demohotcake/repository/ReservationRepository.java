@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservations,Integer> {
 
-    @Query("SELECT r.storeId, r.customerPhoneNumber, r.startTime, r.endTime " +
+    @Query("SELECT r.id, r.phoneNumber, r.startTime, r.endTime " +
             "FROM Reservations r " + // 添加别名 'r'
-            "WHERE r.storeId = :storeId AND " +
+            "WHERE r.id = :storeId AND " +
             "(FUNCTION('YEAR', r.startTime) * 100 + FUNCTION('MONTH', r.startTime) = :yearAndMonth OR " +
             "FUNCTION('YEAR', r.endTime) * 100 + FUNCTION('MONTH', r.endTime) = :yearAndMonth)")
     List<Object[]> findReservationDetailsByStoreIdAndMonth(@Param("storeId") Integer storeId,
