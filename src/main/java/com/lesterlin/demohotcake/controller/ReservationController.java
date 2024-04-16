@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("reservations")
@@ -38,22 +37,22 @@ public class ReservationController {
         reservationRepository.save(reservation);
         return ResponseEntity.ok("預約成功");
 
-}
-
-@GetMapping
-public ResponseEntity<List<Object[]>> getReservationsByStoreIdAndMonth(
-        @RequestParam(value = "storeId", required = true) Integer storeId,
-        @RequestParam(value = "year", required = true) Integer year,
-        @RequestParam(value = "month", required = true) Integer month) {
-
-    int yearMonth = year * 100 + month;
-    List<Object[]> reservations = reservationRepository.findReservationDetailsByStoreIdAndMonth(storeId, yearMonth);
-
-    if (reservations.isEmpty()) {
-        return ResponseEntity.noContent().build(); // 沒有符合的資料，返回204狀態碼(無內容)
-    } else {
-        return ResponseEntity.ok(reservations); // 返回200狀態碼並返回資料
     }
-}
+
+    @GetMapping
+    public ResponseEntity<List<Object[]>> getReservationsByStoreIdAndMonth(
+            @RequestParam(value = "storeId") Integer storeId,
+            @RequestParam(value = "year") Integer year,
+            @RequestParam(value = "month") Integer month) {
+
+        int yearMonth = year * 100 + month;
+        List<Object[]> reservations = reservationRepository.findReservationDetailsByStoreIdAndMonth(storeId, yearMonth);
+
+        if (reservations.isEmpty()) {
+            return ResponseEntity.noContent().build(); // 沒有符合的資料，返回204狀態碼(無內容)
+        } else {
+            return ResponseEntity.ok(reservations); // 返回200狀態碼並返回資料
+        }
+    }
 
 }
