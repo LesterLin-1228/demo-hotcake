@@ -1,7 +1,7 @@
 package com.lesterlin.demohotcake.controller;
 
-import com.lesterlin.demohotcake.entity.Reservations;
-import com.lesterlin.demohotcake.entity.Stores;
+import com.lesterlin.demohotcake.entity.Reservation;
+import com.lesterlin.demohotcake.entity.Store;
 import com.lesterlin.demohotcake.repository.ReservationRepository;
 import com.lesterlin.demohotcake.repository.StoreRepository;
 import jakarta.validation.Valid;
@@ -22,12 +22,11 @@ public class ReservationController {
     @Autowired
     private ReservationRepository reservationRepository;
 
-
     @PostMapping
-    public ResponseEntity<String> createReservation(@Valid @RequestBody Reservations reservation) {
+    public ResponseEntity<String> createReservation(@Valid @RequestBody Reservation reservation) {
         // 查詢 storeRepository 中是否存在與 reservation 中的 storeId 對應的商店
-        Stores store = storeRepository.findById(reservation.getStore().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Store not found"));
+        Store store = storeRepository.findById(reservation.getStore().getId())
+                .orElseThrow(() -> new IllegalArgumentException("無相符的商店"));
         // 如果找到商店就檢查預約時間是否在商店的營業時間內
         if (reservation.getStartTime().isBefore(store.getOpeningTime()) ||
                 reservation.getEndTime().isAfter(store.getClosingTime())) {

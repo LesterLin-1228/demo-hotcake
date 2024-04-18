@@ -1,6 +1,6 @@
 package com.lesterlin.demohotcake.controller;
 
-import com.lesterlin.demohotcake.entity.Stores;
+import com.lesterlin.demohotcake.entity.Store;
 import com.lesterlin.demohotcake.repository.StoreRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +19,9 @@ public class StoreController {
     private StoreRepository storeRepository;
 
     @PostMapping
-    public ResponseEntity<String> createStore(@Valid @RequestBody Stores store) {
+    public ResponseEntity<String> createStore(@Valid @RequestBody Store store) {
         // 根據商店名稱查詢該商店是否存在
-        Stores existingStore = storeRepository.findByName(store.getName());
+        Store existingStore = storeRepository.findByName(store.getName());
         // 若不存在就傳入店名、開店時間、關店時間，創建商店
         if (existingStore == null) {
             storeRepository.save(store);

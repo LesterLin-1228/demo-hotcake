@@ -6,18 +6,22 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
-@Table(name = "stores")
-public class Stores {
+public class Store {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotNull
     private String name;
+
+    @OneToMany(mappedBy = "store",cascade = CascadeType.ALL) // 表示一個商家可以有多個預約
+    private List<Reservation> reservations = new ArrayList<>();
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")

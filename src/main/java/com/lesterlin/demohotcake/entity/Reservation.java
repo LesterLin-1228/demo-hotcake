@@ -9,19 +9,18 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "reservations")
-public class Reservations {
+public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotNull
     private String phoneNumber;
 
-    @ManyToOne
+    @ManyToOne // 表示多個預約屬於同一個商家
     @JoinColumn(name = "store_id", nullable = false)
-    private Stores store;
+    private Store store;
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
